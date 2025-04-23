@@ -2,15 +2,15 @@ package org.example.bookmyshow.services;
 
 import org.example.bookmyshow.dtos.BookingTicketRequestDTO;
 import org.example.bookmyshow.models.*;
-import org.example.bookmyshow.repos.BookingRepository;
-import org.example.bookmyshow.repos.ShowRepository;
-import org.example.bookmyshow.repos.ShowSeatRepository;
-import org.example.bookmyshow.repos.UserRepository;
+import org.example.bookmyshow.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -23,6 +23,10 @@ public class BookingService {
     @Autowired
     private ShowSeatRepository showSeatRepository;
 
+
+
+
+
     public Booking bookTicket(BookingTicketRequestDTO requestDTO) {
         //1.validate user
         User user=userRepository.findById(requestDTO.getUserId())
@@ -30,6 +34,7 @@ public class BookingService {
         //2.validate showid
         Show show=showRepository.findById(requestDTO.getShowId())
                 .orElseThrow((()-> new RuntimeException("Invalid show") ));
+        //System.out.println(show.toString());
         //3.Fetch showSeats
         List<ShowSeat> selectedSeats=showSeatRepository.findAllById(requestDTO.getSeatList());
 

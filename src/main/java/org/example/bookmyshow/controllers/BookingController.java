@@ -25,6 +25,7 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<?> createBooking(@Valid @RequestBody BookingTicketRequestDTO request) {
         //BookingTicketResponseDTO response = new BookingTicketResponseDTO();
+        System.out.println("Entered in BookingController");
         try{
             Booking booking=bookingService.bookTicket(request);
             return ResponseEntity.ok(booking);
